@@ -38,6 +38,10 @@ function ReturnBook() {
     const [bookCount, setBookCount] = useState();
     const params = useParams();
 
+    useEffect(() => {
+        getUsers();
+    }, []);
+
     let getUsers = async () => {
         try {
             const details = await axios.get(`https://638dfe2b4190defdb753283c.mockapi.io/books/${params.id}`);
