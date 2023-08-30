@@ -7,9 +7,6 @@ function BookView() {
 
     const params = useParams();
     const [details, setBookData] = useState([]);
-    useEffect(() => {
-        getUsers();
-    }, []);
 
     let getUsers = async () => {
         try {
