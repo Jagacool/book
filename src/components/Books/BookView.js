@@ -7,7 +7,7 @@ function BookView() {
     const params = useParams();
     const [details, setBookData] = useState([]);
 
-    let getUsers = async () => {
+    const getUsers = async () => {
         try {
             const users = await axios.get(`https://638dfe2b4190defdb753283c.mockapi.io/books/${params.id}`);
             setBookData(users.data);
@@ -18,7 +18,7 @@ function BookView() {
 
     useEffect(() => {
         getUsers();
-    }, [getUsers]);
+    }, [params.id]); // Provide params.id as the dependency
 
     return (
         <div className="container py-5 h-100">
