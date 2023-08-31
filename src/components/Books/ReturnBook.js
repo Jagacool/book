@@ -40,7 +40,7 @@ function ReturnBook() {
 
     useEffect(() => {
         getUsers();
-    }, []);
+    }, [myFormik]);
 
     let getUsers = async () => {
         try {
