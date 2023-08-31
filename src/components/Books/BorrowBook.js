@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { useParams } from 'react-router-dom';
@@ -17,20 +17,23 @@ const formvalidationSchema = yup.object({
 });
 
 function BorrowBook() {
+  const [isLoading, setIsLoading] = useState(false);
   const params = useParams();
 
-  const getUsers = async () => {
-    try {
-      const details = await axios.get(`https://638dfe2b4190defdb753283c.mockapi.io/books/${params.id}`);
-      myFormik.setValues(details.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
+    const getUsers = async () => {
+      try {
+        setIsLoading(true);
+        const details = await axios.get(`https://638dfe2b4190defdb753283c.mockapi.io/books/${params.id}`);
+        // Set your formik values here
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     getUsers();
-  }, []); // Run only on mount
+  }, [params.id]); // Include params.id in the dependency array
 
   const navigate = useNavigate();
 
@@ -59,8 +62,13 @@ function BorrowBook() {
   return (
     <form className="container" onSubmit={myFormik.handleSubmit}>
       <div className="row mt-4 ps-5">
-        {/* Form content */}
-        {/* ... */}
+        <div className="col-lg-5 mt-5 m-auto">
+          {/* Form content */}
+          {/* ... */}
+          <button disabled={isLoading} type="submit" className="btn btn-primary create-btn">
+            {isLoading ? 'Loading...' : 'Update'}
+          </button>
+        </div>
       </div>
     </form>
   );
