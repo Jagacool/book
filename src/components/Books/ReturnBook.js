@@ -36,7 +36,7 @@ function ReturnBook() {
 
   useEffect(() => {
     getUsers();
-  }, []); // Include getUsers in the dependency array
+  }, [myFormik]); // Include getUsers in the dependency array
 
   const navigate = useNavigate();
 
