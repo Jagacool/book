@@ -40,7 +40,7 @@ function BorrowBook() {
 
     useEffect(() => {
         getUsers();
-    }, []);
+    }, [myFormik]);
 
     let getUsers = async () => {
         try {
