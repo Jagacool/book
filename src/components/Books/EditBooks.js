@@ -16,9 +16,9 @@ function EditBooks() {
   const [isLoading, setLoading] = useState(false);
   const params = useParams();
 
- useEffect(() => {  
   const getUsers = async () => {
     try {
+      setLoading(true);
       const details = await axios.get(`https://638dfe2b4190defdb753283c.mockapi.io/books/${params.id}`);
       myFormik.setValues(details.data);
       setLoading(false);
@@ -26,9 +26,10 @@ function EditBooks() {
       console.log(error);
     }
   };
-   
+
+  useEffect(() => {
     getUsers();
-  }, [getUsers]); // Include getUsers in the dependency array
+  }, []); // Include getUsers in the dependency array
 
   const navigate = useNavigate();
 
@@ -44,6 +45,7 @@ function EditBooks() {
       try {
         setLoading(true);
         await axios.put(`https://638dfe2b4190defdb753283c.mockapi.io/books/${params.id}`, values);
+        setLoading(false);
       } catch (error) {
         console.log(error);
         setLoading(false);
@@ -68,7 +70,7 @@ function EditBooks() {
           />
           {/* ...other input fields */}
           <button disabled={isLoading} type="submit" className="btn btn-primary create-btn">
-            {isLoading ? 'isLoading' : 'Update'}
+            {isLoading ? 'Loading...' : 'Update'}
           </button>
         </div>
       </div>
