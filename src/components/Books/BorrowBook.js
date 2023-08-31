@@ -19,6 +19,7 @@ const formvalidationSchema = yup.object({
 function BorrowBook() {
   const params = useParams();
 
+  useEffect(() => {
   const getUsers = async () => {
     try {
       const details = await axios.get(`https://638dfe2b4190defdb753283c.mockapi.io/books/${params.id}`);
@@ -27,8 +28,6 @@ function BorrowBook() {
       console.log(error);
     }
   };
-
-  useEffect(() => {
     getUsers();
   }, [getUsers]);
 
