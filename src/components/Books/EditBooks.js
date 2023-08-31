@@ -26,7 +26,7 @@ function EditBooks() {
 
     useEffect(() => {
         getUsers();
-    }, []);
+    }, [myFormik]);
 
     let getUsers = async () => {
         try {
