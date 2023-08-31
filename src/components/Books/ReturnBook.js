@@ -23,7 +23,9 @@ function ReturnBook() {
 
   const getUsers = async () => {
     try {
-      const details = await axios.get(`https://638dfe2b4190defdb753283c.mockapi.io/books/${params.id}`);
+      const details = await axios.get(
+        `https://638dfe2b4190defdb753283c.mockapi.io/books/${params.id}`
+      );
       setBookCount(details.data.book_count);
       myFormik.setValues(details.data);
       setLoading(false);
@@ -53,7 +55,10 @@ function ReturnBook() {
     onSubmit: async (values) => {
       try {
         setLoading(true);
-        await axios.put(`https://638dfe2b4190defdb753283c.mockapi.io/books/${params.id}`, values);
+        await axios.put(
+          `https://638dfe2b4190defdb753283c.mockapi.io/books/${params.id}`,
+          values
+        );
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -69,15 +74,46 @@ function ReturnBook() {
         <div className="col-lg-5  mt-5 ">
           <h3>Enter Your Details:</h3>
           {/* Input fields for user details */}
+          {/* Example: */}
+          <input
+            type="text"
+            className={`form-control ${
+              myFormik.touched.name && myFormik.errors.name ? 'is-invalid' : ''
+            }`}
+            value={myFormik.values.name}
+            name="name"
+            placeholder="Name"
+            onBlur={myFormik.handleBlur}
+            onChange={myFormik.handleChange}
+          />
+          {/* ...other input fields for user details */}
         </div>
         <div className="col-lg-5  m-5">
           <h3>Book Details:</h3>
           {/* Input fields for book details */}
+          {/* Example: */}
+          <input
+            type="text"
+            className={`form-control ${
+              myFormik.touched.book_name && myFormik.errors.book_name
+                ? 'is-invalid'
+                : ''
+            }`}
+            value={myFormik.values.book_name}
+            name="book_name"
+            placeholder="Book Name"
+            onBlur={myFormik.handleBlur}
+            onChange={myFormik.handleChange}
+          />
+          {/* ...other input fields for book details */}
           <div className="d-sm-flex  justify-content-end mt-3">
             <button
               disabled={isLoading}
               onClick={() => {
-                myFormik.setValues({ ...myFormik.values, book_count: bookCount + 1 });
+                myFormik.setValues({
+                  ...myFormik.values,
+                  book_count: bookCount + 1,
+                });
                 myFormik.handleSubmit();
               }}
               type="submit"
