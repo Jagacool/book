@@ -12,14 +12,15 @@ function Book() {
     const [bookdata, setbookData] = useState([]);
     const [search, setSearch] = useState("");
     const handlesearch = (data, search) => {
-        const filteredData = data.filter((d, i) => {
-            d.book_name = d.book_name.toLowerCase();
-            if (d.book_name.includes(search)) {
-                return true;
-            }
-        });
-        return filteredData;
-    }
+    const filteredData = data.filter((d) => {
+        d.book_name = d.book_name.toLowerCase();
+        if (d.book_name.includes(search)) {
+            return true;
+        }
+        return false; // Provide a return value for the case where the condition is not met
+    });
+    return filteredData;
+}
     const filteredData = useMemo(() => handlesearch(bookdata, search));
 
 
