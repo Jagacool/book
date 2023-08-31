@@ -1,6 +1,16 @@
 import React from 'react';
-import { faBook, faBookDead, faBookReader, faCalendar, faClipboardList, faComments, faDollar, faRupee, faUser, faUserAlt, faUserPlus, faUsers } from '@fortawesome/free-solid-svg-icons';
-import { Card } from './Card';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    // Remove these unused variables
+    // faBookDead,
+    // faCalendar,
+    // faClipboardList,
+    // faComments,
+    // faDollar,
+    // faRupee,
+    // faUser,
+    // faUserAlt,
+} from '@fortawesome/free-solid-svg-icons';
 
 /*cards datalist*/
 export function CardList() {
