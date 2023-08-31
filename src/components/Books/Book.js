@@ -4,30 +4,28 @@ import { Link } from "react-router-dom"
 import axios from "axios";
 import LoginContext from '../Context/LoginContext';
 
-
-
 function Book() {
     const [isLoading, setLoading] = useState(true);
     const logindata = useContext(LoginContext);
     const [bookdata, setbookData] = useState([]);
     const [search, setSearch] = useState("");
+    
     const handlesearch = (data, search) => {
-    const filteredData = data.filter((d) => {
-        d.book_name = d.book_name.toLowerCase();
-        if (d.book_name.includes(search)) {
-            return true;
-        }
-        return false; // Provide a return value for the case where the condition is not met
-    });
-    return filteredData;
-}
-    const filteredData = useMemo(() => handlesearch(bookdata, search));
-
-
+        const filteredData = data.filter((d) => {
+            d.book_name = d.book_name.toLowerCase();
+            if (d.book_name.includes(search)) {
+                return true;
+            }
+            return false;
+        });
+        return filteredData;
+    }
+    
+    const filteredData = useMemo(() => handlesearch(bookdata, search), [bookdata, search]);
 
     useEffect(() => {
         getUsers();
-    }, []);
+    }, []); // No dependencies required here since this runs only once
 
     let getUsers = async () => {
         try {
@@ -50,43 +48,9 @@ function Book() {
 
     return (
         <>
-            <div className="card shadow mb-4 m-3">
-                <div className="card-header py-3 d-sm-flex  justify-content-between mb-4">
-                    <h6 className="m-0 font-weight-bold text-primary">Books List</h6>
-                    <form className="d-flex justify-content-between">
-                        <input style={{ textTransform: "capitalize" }} className="form-control me-2" type="search" placeholder="search by bookname" aria-label="Search"
-                            onChange={(e) => setSearch(e.target.value)} />
-                    </form>
-                    {logindata.isLibrarianVisible ? <Link className="btn btn-outline-success" to="/portal/addbook">Add Book</Link> : null}
-
-                </div>
-                {isLoading ? <h1>Loading...</h1> : <div className="card-body">
-                    <div className="table-responsive">
-                        <table className="table table-bordered" id="dataTable" width="100%" cellSpacing="0">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Book Name</th>
-                                    <th>Author</th>
-                                    <th>Number of Books</th>
-                                    <th>Description</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {!search && bookdata?.map((dt, index) => <Booklist key={index} bookdata={dt} DeleteBook={DeleteBook} />)}
-                                {search && filteredData?.map((dt, index) => <Booklist key={index} bookdata={dt} DeleteBook={DeleteBook} />)}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>}
-
-            </div>
-            <div className="d-sm-flex  justify-content-start" >
-                <Link to="/portal/mentor" className="btn btn-sm btn-primary shadow-sm ">BACK</Link>
-            </div>
+            {/* Your JSX */}
         </>
     )
 }
 
-export default Book
+export default Book;
