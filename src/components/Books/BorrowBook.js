@@ -34,7 +34,7 @@ function BorrowBook() {
     };
 
     getUsers();
-  }, [params.id]);
+  }, [myFormik]);
 
   const navigate = useNavigate();
 
