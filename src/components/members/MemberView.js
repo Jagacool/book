@@ -8,17 +8,17 @@ function MemberView() {
   const [details, setmemberData] = useState([]);
 
   useEffect(() => {
-    getUsers();
-  }, [params.id]); // Include params.id in the dependency array
+    const fetchMemberData = async () => {
+      try {
+        const users = await axios.get(`https://638dfe2b4190defdb753283c.mockapi.io/Teacher/${params.id}`);
+        setmemberData(users.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  let getUsers = async () => {
-    try {
-      const users = await axios.get(`https://638dfe2b4190defdb753283c.mockapi.io/Teacher/${params.id}`);
-      setmemberData(users.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    fetchMemberData();
+  }, [params.id]);
 
   return (
     <div className="container py-5 h-100 ">
