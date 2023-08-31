@@ -24,8 +24,9 @@ function BorrowBook() {
     const getUsers = async () => {
       try {
         setIsLoading(true);
-        const details = await axios.get(`https://638dfe2b4190defdb753283c.mockapi.io/books/${params.id}`);
-        // Set your formik values here
+        const response = await axios.get(`https://638dfe2b4190defdb753283c.mockapi.io/books/${params.id}`);
+        const details = response.data; // Access the data from the response
+        myFormik.setValues(details); // Set formik values using the 'details' object
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -33,7 +34,7 @@ function BorrowBook() {
     };
 
     getUsers();
-  }, [params.id]); // Include params.id in the dependency array
+  }, [params.id]);
 
   const navigate = useNavigate();
 
@@ -52,10 +53,10 @@ function BorrowBook() {
     onSubmit: async (values) => {
       try {
         await axios.put(`https://638dfe2b4190defdb753283c.mockapi.io/books/${params.id}`, values);
+        navigate('/portal/book');
       } catch (error) {
         console.log(error);
       }
-      navigate('/portal/book');
     },
   });
 
@@ -63,8 +64,17 @@ function BorrowBook() {
     <form className="container" onSubmit={myFormik.handleSubmit}>
       <div className="row mt-4 ps-5">
         <div className="col-lg-5 mt-5 m-auto">
-          {/* Form content */}
-          {/* ... */}
+          {/* Input fields */}
+          <input
+            type="text"
+            className={`form-control ${myFormik.touched.book_name && myFormik.errors.book_name ? 'is-invalid' : 'is-valid'}`}
+            value={myFormik.values.book_name}
+            name="book_name"
+            placeholder="Name"
+            onBlur={myFormik.handleBlur}
+            onChange={myFormik.handleChange}
+          />
+          {/* ...other input fields */}
           <button disabled={isLoading} type="submit" className="btn btn-primary create-btn">
             {isLoading ? 'Loading...' : 'Update'}
           </button>
