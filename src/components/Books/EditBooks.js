@@ -58,16 +58,21 @@ function EditBooks() {
     <form className="container" onSubmit={myFormik.handleSubmit}>
       <div className="row mt-4 ps-5">
         <div className="col-lg-5  mt-5 m-auto">
-          {/* Form content */}
-          <input
-            type="text"
-            className={`form-control ${myFormik.touched.book_name && myFormik.errors.book_name ? 'is-invalid' : 'is-valid'}`}
-            value={myFormik.values.book_name}
-            name="book_name"
-            placeholder="Name"
-            onBlur={myFormik.handleBlur}
-            onChange={myFormik.handleChange}
-          />
+          <h3>Edit Book Details:</h3>
+          <div className="form-group">
+            <label htmlFor="book_name">Book Name:</label>
+            <input
+              type="text"
+              id="book_name"
+              className={`form-control ${myFormik.touched.book_name && myFormik.errors.book_name ? 'is-invalid' : 'is-valid'}`}
+              value={myFormik.values.book_name}
+              name="book_name"
+              placeholder="Enter Book Name"
+              onBlur={myFormik.handleBlur}
+              onChange={myFormik.handleChange}
+            />
+            {myFormik.touched.book_name && myFormik.errors.book_name && <div className="invalid-feedback">{myFormik.errors.book_name}</div>}
+          </div>
           {/* ...other input fields */}
           <button disabled={isLoading} type="submit" className="btn btn-primary create-btn">
             {isLoading ? 'Loading...' : 'Update'}
