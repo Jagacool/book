@@ -1,16 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    // Remove these unused variables
-    // faBookDead,
-    // faCalendar,
-    // faClipboardList,
-    // faComments,
-    // faDollar,
-    // faRupee,
-    // faUser,
-    // faUserAlt,
-} from '@fortawesome/free-solid-svg-icons';
+import { faBook, faBookReader, faUsers, faUserPlus } from '@fortawesome/free-solid-svg-icons'; // Import the required icons
+import { Card } from './Card';
 
 /*cards datalist*/
 export function CardList() {
@@ -32,7 +23,6 @@ export function CardList() {
             count: 350,
             colors: "info",
             icon: faUsers,
-
         },
         {
             title: "NEW MEMBER",
@@ -47,3 +37,5 @@ export function CardList() {
         </div>
     );
 }
+
+export default CardList;
