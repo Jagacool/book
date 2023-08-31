@@ -1,24 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 function BookView() {
     const params = useParams();
-    const [details, setBookData] = useState([]);
-
-    const getUsers = async () => {
-        try {
-            const users = await axios.get(`https://638dfe2b4190defdb753283c.mockapi.io/books/${params.id}`);
-            setBookData(users.data);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    const [books, setBooks] = useState([]);
 
     useEffect(() => {
+        const getUsers = async () => {
+            try {
+                const response = await axios.get(`https://638dfe2b4190defdb753283c.mockapi.io/Teacher/${params.id}`);
+                setBooks(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
         getUsers();
-    }, [params.id]); // Provide params.id as the dependency
+    }, [params.id]);
 
     return (
         <div className="container py-5 h-100">
