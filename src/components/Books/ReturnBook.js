@@ -21,7 +21,6 @@ function ReturnBook() {
   const [bookCount, setBookCount] = useState();
   const params = useParams();
 
-  useEffect(() => {
   const getUsers = async () => {
     try {
       const details = await axios.get(`https://638dfe2b4190defdb753283c.mockapi.io/books/${params.id}`);
@@ -32,9 +31,10 @@ function ReturnBook() {
       console.log(error);
     }
   };
-  
+
+  useEffect(() => {
     getUsers();
-  }, [getUsers]); // Include getUsers in the dependency array
+  }, []); // Include getUsers in the dependency array
 
   const navigate = useNavigate();
 
@@ -54,6 +54,7 @@ function ReturnBook() {
       try {
         setLoading(true);
         await axios.put(`https://638dfe2b4190defdb753283c.mockapi.io/books/${params.id}`, values);
+        setLoading(false);
       } catch (error) {
         console.log(error);
         setLoading(false);
@@ -82,7 +83,7 @@ function ReturnBook() {
               type="submit"
               className="btn btn-primary create-btn"
             >
-              {isLoading ? 'isLoading' : 'Return'}
+              {isLoading ? 'Loading...' : 'Return'}
             </button>
           </div>
         </div>
